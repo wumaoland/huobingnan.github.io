@@ -161,6 +161,97 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huobingnan.github.io/2020/11/27/Mybatis%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Huo Bingnan">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="霍丙南的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/27/Mybatis%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">Mybatis源码阅读环境搭建教程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-11-27 22:20:26 / 修改时间：22:28:00" itemprop="dateCreated datePublished" datetime="2020-11-27T22:20:26+08:00">2020-11-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Mybatis是一款优秀的Java ORM框架，想要深入学习它，自然要从源码开始。但是源码阅读的学习通常伴随着复杂头痛的配置，本篇文章让您用最简单的步骤配置好Mybatis的源码阅读环境。</p>
+<ol>
+<li><p><strong>源码下载</strong></p>
+<p>Mybatis的官方仓库位于Github上，你可以直接从官方下载最新版本的源码进行阅读，但是这里推荐给你一种更好的选择，那就是优秀的程序员<a target="_blank" rel="noopener" href="https://github.com/tuguangquan">tuguangquan</a>上传的中文注释版本的Mybatis源码，并且在他的仓库中详细的阐述的Mybatis源码的配置教程，这里借鉴了前辈的做法，并且做了一些小改动，使源码阅读环境配置更加便利。</p>
+<p>国内的网友推荐使用我配置完毕的gitee仓库下载源码以及依赖(网速比较快，在没有TZ的情况下)。</p>
+<p>在源码阅读之前，请首先配置好你的源码目录，在你本地电脑的任意位置创建一个名为<code>mybatis</code>的文件夹，并且<strong>进入到这个文件夹</strong>。紧接着我们开始下载源码。</p>
+<p>首先下载<code>mybatis-parent</code>的源码：gitee地址 =&gt; <code>https://gitee.com/callback_lab/mybatis-parent.git</code></p>
+<p>然后下载<code>mybatis</code>的源码：gitee地址 =&gt; <code>https://gitee.com/callback_lab/mybatis-src.git</code></p>
+<p>源码下载完毕之后，我们的目录结构应该是这样子的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- mybatis</span><br><span class="line">	- mybatis-parent</span><br><span class="line">	- mybatis-src</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>导入到IDEA</strong></p>
+<p><img src="./Mybatis%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/mybatis-srcIDEA%E5%AF%BC%E5%85%A5.png"></p>
+<p>导入到IDEA之后，更新Maven工程，处理好依赖之后，点击LifeCycle进行编译。</p>
+<p><img src="./Mybatis%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/mybatis-srcIDEA-Maven-Compile.png"></p>
+<p>至此，若无报错信息，我们的Mybatis源码的阅读环境就算是搭建完毕了。</p>
+</li>
+<li><p><strong>注意事项</strong></p>
+<ul>
+<li>请务必保障目录结构如<code>1</code>中所述，不然会导致出错。</li>
+<li>处理好依赖信息之后再进行编译操作。</li>
+</ul>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://huobingnan.github.io/2020/11/26/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%E6%A0%91-Java%E5%AE%9E%E7%8E%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -437,7 +528,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
