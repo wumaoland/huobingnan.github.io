@@ -167,6 +167,140 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://huobingnan.github.io/2020/11/30/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Huo Bingnan">
+      <meta itemprop="description" content="说什么真理无限，进一步有一步的欢喜">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="霍丙南的博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/30/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="post-title-link" itemprop="url">JavaScript原型链</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-30 19:40:24" itemprop="dateCreated datePublished" datetime="2020-11-30T19:40:24+08:00">2020-11-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-01 13:19:51" itemprop="dateModified" datetime="2020-12-01T13:19:51+08:00">2020-12-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020/11/30/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020/11/30/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>JavaScript一款基于<strong>原型</strong>的编程语言，原型实际上是一种设计模式。JavaScript语言之所以基于原型去设计，我猜测与最初的语言应用场景有关。最初，JavaScript是一款运行于浏览器中的语言（当然现在JavaScript的运行环境越来越丰富，完全可以脱离浏览器运行），既然是基于浏览器，那么编程语言在设计上就要考虑内存的占用问题，而原型设计模式在内存占用与代码复用上都无比适合于浏览器环境。</p>
+<p>若要我用一句话来说JavaScript的原型到底是什么，我想它应该是一个<strong>可复用的单例</strong>。这里有两个关键词，<strong>可复用</strong>与<strong>单例</strong>，单例也是一种设计模式，它是对象创建模式的一种，单例最大的好处就在于能够节省内存，避免不必要的对象多次创建。但是单例模式没有很好的可复用性，所以JavaScript采用<strong>原型链</strong>来解决<strong>可复用性</strong>问题。</p>
+<h2 id="由原型链引发的一些思索"><a href="#由原型链引发的一些思索" class="headerlink" title="由原型链引发的一些思索"></a>由原型链引发的一些思索</h2><p>从字面意思上来看，原型链是一种链式结构。JavaScript中每个对象都有一个原型，这是必然。在不同的JavaScript Runtime Environment中，对象原型会有所不同。本文以Node.js运行环境为例进行介绍。</p>
+<ol>
+<li><p><strong>初探原型链</strong></p>
+<p>JavaScript中每个对象都有一个”属性“<code>__proto__</code>，实际上它并不是属性，而是一个属性访问器(Accessor)，</p>
+<p>通过它你可以获取到一个对象的原型。对象的原型也是一个对象，所以对象的原型也有<code>__proto__</code>，这样就构成了一个链式的结构，没错这就是对象的<strong>原型链</strong>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> s = <span class="string">&quot;hello world&quot;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(s.__proto__);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>prototype</strong></p>
+<p>在JavaScript中还有另一个与原型链十分重要的概念那就是<code>prototype</code>，<code>prototype</code>是一个属性，但是它并不是一个所有对象都拥有的属性，这个属性仅存在于<code>function</code>对象中。在我看来，能够明确<code>prototype</code>与<code>__proto__</code>之间的区别，你会对JavaScript语言设计的理解上升一个层次。</p>
+<p>JavaScript中常见的几种数据类型，分别是：</p>
+<p>数组类型，字符串类型，数字类型，函数类型，集合类型，映射类型。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>; <span class="comment">// 数组构造函数</span></span><br><span class="line"><span class="built_in">String</span>; <span class="comment">// 字符串构造函数</span></span><br><span class="line"><span class="built_in">Number</span>; <span class="comment">// 数字构造函数</span></span><br><span class="line"><span class="built_in">Function</span>; <span class="comment">// 函数构造函数</span></span><br><span class="line"><span class="built_in">Map</span>; <span class="comment">// 映射构造函数</span></span><br><span class="line"><span class="built_in">Set</span>; <span class="comment">// 集合构造函数</span></span><br></pre></td></tr></table></figure>
+
+<p>其实在JavaScript中比较容易混淆的一个概念是构造函数和类型，其实这是两个不同的概念。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;&quot;</span>.__proto__ === <span class="built_in">String</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>在JavaScript中函数也是对象，<code>String</code>，<code>Array</code>他们并不是类型，而是对象，一种特殊的对象。这种对象可以派生其他的对象，当它们被当作构造函数使用时，但是StringObject和String并没有父与子的关系，它们两个的关系是平等的，是好兄弟的关系。</p>
+<p>我在上文中也提到过，任何对象都有一个原型，那么我通过构造函数新创建出来的对象它以哪个对象为原型呢？首先我们可以排除它肯定不是以构造函数对象为原型的，上面的例子中我们也证明了。</p>
+<p>答案是：通过构造函数对象<code>new</code>出来的对象是以构造函数中的一个属性<code>prototype</code>所指向的对象为原型的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;&quot;</span>.__proto__ === <span class="built_in">String</span>.prototype); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/11/30/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE/prototype.png"></p>
+</li>
+<li><p><strong>原型链的作用</strong></p>
+<p>文章最开始说，JavaScript的原型可以看作是可复用的单例。那么原型链就是为了解决复用性问题。</p>
+<p>首先JavaScript是面向对象的程序设计语言。既然面向对象那么就会有属性和方法的概念。在其他面向对象的程序设计语言中，对象其实就是数据（属性）的集合。至于方法在内存中其实只存在一份。JavaScript的原型链设计也有这方面的考量，但是更多的像是通过原型链的方法借用，对象仍然是数据的集合。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    name: <span class="string">&quot;hello&quot;</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(obj.hasOwnProperty(<span class="string">&quot;name&quot;</span>)); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>对于对象<code>obj</code>它并没有<code>hasOwnProperty</code>这个方法，但是我们仍然可以调用，这是为什么呢？</p>
+<p>答案其实是原型链在起作用，对象自己没有的方法和属性可以在原型链上向上找寻。</p>
+<p>我们来看一下<code>obj</code>的原型链。</p>
+<p><img src="/2020/11/30/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE/object-prototype-chain.png"></p>
+<p>没错方法就存在于<code>obj</code>的原型对象中，我们可以写个代码测试一下。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.hasOwnProperty = <span class="function"><span class="keyword">function</span> (<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">console</span>.log(obj.hasOwnProperty(<span class="string">&quot;name&quot;</span>)); <span class="comment">// name</span></span><br></pre></td></tr></table></figure>
+
+<p>原型链是一个单向链，原型链上的对象可以看作是父与子的关系。</p>
+</li>
+</ol>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p><strong>继承是原型的继承</strong>，JavaScript是面向对象的程序设计语言，所以自然会有对象之间的继承，组合等关系。上文讲到JavaScript原型链上的对象有着父与子的关系。所以JavaScript中的继承也是通过原型链来实现的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Shape</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">Shape.prototype.draw = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`drawing <span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span>`</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Rectangle</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = <span class="string">&quot;矩形&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 继承是原型的继承</span></span><br><span class="line">Rectangle.prototype.__proto__ = Shape.prototype;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> r = <span class="keyword">new</span> Rectangle();</span><br><span class="line">r.draw();</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://huobingnan.github.io/2020/11/27/Mybatis%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -576,20 +710,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
