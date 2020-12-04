@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
+    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":20,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      1.6k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      48
+      43
        分钟
     </span>
   
@@ -249,72 +249,72 @@
 <li>搜索：查看BST中是否包含有某个值。</li>
 <li>序列化：将BST序列化为一维有序序列。</li>
 </ul>
-<h4 id="BST-定义"><a href="#BST-定义" class="headerlink" title="BST 定义"></a>BST 定义</h4><div class="hljs code-wrapper"><pre class="language-java" data-language="java"><code class="language-java">&#x2F;**
- * Binary Search Tree 非递归实现版本
- * @author callback
- * @param &lt;T&gt; 数据域模板参数
- * @version 1.0.0
- * @copyright (c) 2020
- *&#x2F;
-public class BST&lt;T extends Comparable&lt;T&gt;&gt;
-&#123;
+<h4 id="BST-定义"><a href="#BST-定义" class="headerlink" title="BST 定义"></a>BST 定义</h4><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * Binary Search Tree 非递归实现版本</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@author</span> callback</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> &lt;T&gt; 数据域模板参数</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@version</span> 1.0.0</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@copyright</span> (c) 2020</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">BST</span>&lt;<span class="hljs-title">T</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Comparable</span>&lt;<span class="hljs-title">T</span>&gt;&gt;</span>
+<span class="hljs-class"></span>&#123;
 
-    &#x2F;* Binary Search Tree Node *&#x2F;
-    private static class TreeNode&lt;T extends Comparable&lt;T&gt;&gt;
-    &#123;
-        private TreeNode&lt;T&gt; left; &#x2F;* 左节点 *&#x2F;
-        private TreeNode&lt;T&gt; right; &#x2F;* 右节点 *&#x2F;
-        private TreeNode&lt;T&gt; parent; &#x2F;* 双亲节点 *&#x2F;
+    <span class="hljs-comment">/* Binary Search Tree Node */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TreeNode</span>&lt;<span class="hljs-title">T</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Comparable</span>&lt;<span class="hljs-title">T</span>&gt;&gt;</span>
+<span class="hljs-class">    </span>&#123;
+        <span class="hljs-keyword">private</span> TreeNode&lt;T&gt; left; <span class="hljs-comment">/* 左节点 */</span>
+        <span class="hljs-keyword">private</span> TreeNode&lt;T&gt; right; <span class="hljs-comment">/* 右节点 */</span>
+        <span class="hljs-keyword">private</span> TreeNode&lt;T&gt; parent; <span class="hljs-comment">/* 双亲节点 */</span>
 
-        private T data; &#x2F;* 数据域 *&#x2F;
+        <span class="hljs-keyword">private</span> T data; <span class="hljs-comment">/* 数据域 */</span>
 
         TreeNode() &#123;&#125;
 
-        TreeNode(T data) &#123; this.data &#x3D; data; &#125;
+        TreeNode(T data) &#123; <span class="hljs-keyword">this</span>.data = data; &#125;
 
         TreeNode(TreeNode&lt;T&gt; parent, T data) &#123;
-            this.parent &#x3D; parent;
-            this.data &#x3D; data;
+            <span class="hljs-keyword">this</span>.parent = parent;
+            <span class="hljs-keyword">this</span>.data = data;
         &#125;
     &#125;
 
 
-    private TreeNode&lt;T&gt; root &#x3D; null; &#x2F;* 根节点 *&#x2F;
-    private int size &#x3D; 0; &#x2F;* BST的规模 *&#x2F;
+    <span class="hljs-keyword">private</span> TreeNode&lt;T&gt; root = <span class="hljs-keyword">null</span>; <span class="hljs-comment">/* 根节点 */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> size = <span class="hljs-number">0</span>; <span class="hljs-comment">/* BST的规模 */</span>
 &#125;</code></pre></div>
 
 <h4 id="插入操作"><a href="#插入操作" class="headerlink" title="插入操作"></a>插入操作</h4><p>二叉树是一种动态树表，其特点是树的结构通常不是一次性生成的，而是在查找过程中，当树中不存在关键字值等于给定值的节点时在进行插入。</p>
-<div class="hljs code-wrapper"><pre class="language-java" data-language="java"><code class="language-java">&#x2F;* 插入操作 *&#x2F;
-public void insert(T data)
-&#123;
-    TreeNode&lt;T&gt; p &#x3D; root;
-    TreeNode&lt;T&gt; parent &#x3D; null; &#x2F;* 记录双亲节点 *&#x2F;
-    while (p !&#x3D; null) &#123;
-        parent &#x3D; p;
-        if (data.compareTo(p.data) &gt; 0) p &#x3D; p.right;
-        else if (data.compareTo(p.data) &lt; 0) p &#x3D; p.left;
+<div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/* 插入操作 */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(T data)</span></span>
+<span class="hljs-function"></span>&#123;
+    TreeNode&lt;T&gt; p = root;
+    TreeNode&lt;T&gt; parent = <span class="hljs-keyword">null</span>; <span class="hljs-comment">/* 记录双亲节点 */</span>
+    <span class="hljs-keyword">while</span> (p != <span class="hljs-keyword">null</span>) &#123;
+        parent = p;
+        <span class="hljs-keyword">if</span> (data.compareTo(p.data) &gt; <span class="hljs-number">0</span>) p = p.right;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.compareTo(p.data) &lt; <span class="hljs-number">0</span>) p = p.left;
     &#125;
 
-    if (parent &#x3D;&#x3D; null) &#123;
-        root &#x3D; new TreeNode&lt;&gt;(null, data);
-        size++; return;
+    <span class="hljs-keyword">if</span> (parent == <span class="hljs-keyword">null</span>) &#123;
+        root = <span class="hljs-keyword">new</span> TreeNode&lt;&gt;(<span class="hljs-keyword">null</span>, data);
+        size++; <span class="hljs-keyword">return</span>;
     &#125;
 
-    if (data.compareTo(parent.data) &lt; 0) parent.left &#x3D; new TreeNode&lt;&gt;(parent, data);
-    else if (data.compareTo(parent.data) &gt; 0) parent.right &#x3D; new TreeNode&lt;&gt;(parent, data);
+    <span class="hljs-keyword">if</span> (data.compareTo(parent.data) &lt; <span class="hljs-number">0</span>) parent.left = <span class="hljs-keyword">new</span> TreeNode&lt;&gt;(parent, data);
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.compareTo(parent.data) &gt; <span class="hljs-number">0</span>) parent.right = <span class="hljs-keyword">new</span> TreeNode&lt;&gt;(parent, data);
     size++;
 &#125;</code></pre></div>
 
-<h4 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h4><div class="hljs code-wrapper"><pre class="language-java" data-language="java"><code class="language-java">&#x2F;* 查看BST中是否包含 @param data *&#x2F;
-public boolean contains(T data)
-&#123;
-    TreeNode&lt;T&gt; p &#x3D; root;
-    for (;;) &#123;
-        if (p &#x3D;&#x3D; null) return false;
+<h4 id="查找操作"><a href="#查找操作" class="headerlink" title="查找操作"></a>查找操作</h4><div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/* 查看BST中是否包含 @param data */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">contains</span><span class="hljs-params">(T data)</span></span>
+<span class="hljs-function"></span>&#123;
+    TreeNode&lt;T&gt; p = root;
+    <span class="hljs-keyword">for</span> (;;) &#123;
+        <span class="hljs-keyword">if</span> (p == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
 
-        if (data.compareTo(p.data) &gt; 0) p &#x3D; p.right;
-        else if (data.compareTo(p.data) &lt; 0) p &#x3D; p.left;
-        else return true;
+        <span class="hljs-keyword">if</span> (data.compareTo(p.data) &gt; <span class="hljs-number">0</span>) p = p.right;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.compareTo(p.data) &lt; <span class="hljs-number">0</span>) p = p.left;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
     &#125;
 &#125;</code></pre></div>
 
@@ -324,97 +324,97 @@ public boolean contains(T data)
 <li>删除的节点只有一棵左子树或右子树，删除时让删除节点的子树成为其父节点的子树即可。</li>
 <li>删除的节点有左右两棵子树，这种情况较为复杂，一般让该节点的直接后继节点(中序遍历中的下一个节点)代替当前节点，然后，将直接后继节点的父节点的左子树设置为直接后继节点的右子树即可。</li>
 </ul>
-<div class="hljs code-wrapper"><pre class="language-java" data-language="java"><code class="language-java">&#x2F;* 删除操作 *&#x2F;
-public boolean delete(T data)
-&#123;
-    TreeNode&lt;T&gt; p &#x3D; root;
+<div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/* 删除操作 */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">delete</span><span class="hljs-params">(T data)</span></span>
+<span class="hljs-function"></span>&#123;
+    TreeNode&lt;T&gt; p = root;
 
-    for (;;) &#123;
-        if (p &#x3D;&#x3D; null) return false;
+    <span class="hljs-keyword">for</span> (;;) &#123;
+        <span class="hljs-keyword">if</span> (p == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;
 
-        if (data.compareTo(p.data) &#x3D;&#x3D; 0) break;
-        else if (data.compareTo(p.data) &lt; 0) p &#x3D; p.left;
-        else p &#x3D; p.right;
+        <span class="hljs-keyword">if</span> (data.compareTo(p.data) == <span class="hljs-number">0</span>) <span class="hljs-keyword">break</span>;
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.compareTo(p.data) &lt; <span class="hljs-number">0</span>) p = p.left;
+        <span class="hljs-keyword">else</span> p = p.right;
     &#125;
 
-    if (p.left &#x3D;&#x3D; null &amp;&amp; p.right &#x3D;&#x3D; null) &#123;
-        if (p &#x3D;&#x3D; root) &#123;
-            root &#x3D; null;
-        &#125; else &#123;
-            if (data.compareTo(p.parent.data) &lt; 0) &#123;
-                p.parent.left &#x3D; null;
-            &#125; else if (data.compareTo(p.parent.data) &gt; 0) &#123;
-                p.parent.right &#x3D; null;
+    <span class="hljs-keyword">if</span> (p.left == <span class="hljs-keyword">null</span> &amp;&amp; p.right == <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-keyword">if</span> (p == root) &#123;
+            root = <span class="hljs-keyword">null</span>;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">if</span> (data.compareTo(p.parent.data) &lt; <span class="hljs-number">0</span>) &#123;
+                p.parent.left = <span class="hljs-keyword">null</span>;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.compareTo(p.parent.data) &gt; <span class="hljs-number">0</span>) &#123;
+                p.parent.right = <span class="hljs-keyword">null</span>;
             &#125;
         &#125;
-    &#125; else if (p.left &#x3D;&#x3D; null) &#123;
-        if (p &#x3D;&#x3D; root) &#123;
-            root &#x3D; root.right;
-        &#125; else &#123;
-            if (data.compareTo(p.parent.data) &lt; 0) &#123;
-                p.parent.left &#x3D; p.right;
-            &#125; else if (data.compareTo(p.parent.data) &gt; 0) &#123;
-                p.parent.right &#x3D; p.right;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p.left == <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-keyword">if</span> (p == root) &#123;
+            root = root.right;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">if</span> (data.compareTo(p.parent.data) &lt; <span class="hljs-number">0</span>) &#123;
+                p.parent.left = p.right;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.compareTo(p.parent.data) &gt; <span class="hljs-number">0</span>) &#123;
+                p.parent.right = p.right;
             &#125;
         &#125;
-    &#125; else if (p.right &#x3D;&#x3D; null) &#123;
-        if (p &#x3D;&#x3D; root) &#123;
-            root &#x3D; root.left;
-        &#125; else &#123;
-            if (data.compareTo(p.parent.data) &lt; 0) &#123;
-                p.parent.left &#x3D; p.left;
-            &#125; else if (data.compareTo(p.parent.data) &gt; 0) &#123;
-                p.parent.right &#x3D; p.left;
+    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p.right == <span class="hljs-keyword">null</span>) &#123;
+        <span class="hljs-keyword">if</span> (p == root) &#123;
+            root = root.left;
+        &#125; <span class="hljs-keyword">else</span> &#123;
+            <span class="hljs-keyword">if</span> (data.compareTo(p.parent.data) &lt; <span class="hljs-number">0</span>) &#123;
+                p.parent.left = p.left;
+            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (data.compareTo(p.parent.data) &gt; <span class="hljs-number">0</span>) &#123;
+                p.parent.right = p.left;
             &#125;
         &#125;
-    &#125; else &#123;
-        &#x2F;* 待删除节点既有左节点又有右节点 *&#x2F;
-        TreeNode&lt;T&gt; next &#x3D; getNextTreeNode(p); &#x2F;* 获取该节点的直接后继节点 *&#x2F;
-        p.data &#x3D; next.data; &#x2F;* 用直接后继节点的数据更新当前节点 *&#x2F;
-        next.parent.left &#x3D; next.right; &#x2F;* 删除直接后继节点，直接后继节点的一定为一个极左节点。 *&#x2F;
+    &#125; <span class="hljs-keyword">else</span> &#123;
+        <span class="hljs-comment">/* 待删除节点既有左节点又有右节点 */</span>
+        TreeNode&lt;T&gt; next = getNextTreeNode(p); <span class="hljs-comment">/* 获取该节点的直接后继节点 */</span>
+        p.data = next.data; <span class="hljs-comment">/* 用直接后继节点的数据更新当前节点 */</span>
+        next.parent.left = next.right; <span class="hljs-comment">/* 删除直接后继节点，直接后继节点的一定为一个极左节点。 */</span>
     &#125;
-    size--; return true;
+    size--; <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;
 &#125;
-&#x2F;* 获取一个节点的直接后继节点 *&#x2F;
-private TreeNode&lt;T&gt; getNextTreeNode(TreeNode&lt;T&gt; node)
-&#123;
-    if (node &#x3D;&#x3D; null) return node;
+<span class="hljs-comment">/* 获取一个节点的直接后继节点 */</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> TreeNode&lt;T&gt; <span class="hljs-title">getNextTreeNode</span><span class="hljs-params">(TreeNode&lt;T&gt; node)</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">if</span> (node == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> node;
 
-    if (node.right !&#x3D; null) &#123;
-        node &#x3D; node.right;
-        while (node.left !&#x3D; null) node &#x3D; node.left;
-        return node;
-    &#125; else &#123;
-        TreeNode&lt;T&gt; parent &#x3D; node.parent;
+    <span class="hljs-keyword">if</span> (node.right != <span class="hljs-keyword">null</span>) &#123;
+        node = node.right;
+        <span class="hljs-keyword">while</span> (node.left != <span class="hljs-keyword">null</span>) node = node.left;
+        <span class="hljs-keyword">return</span> node;
+    &#125; <span class="hljs-keyword">else</span> &#123;
+        TreeNode&lt;T&gt; parent = node.parent;
 
-        while (parent !&#x3D; null &amp;&amp; parent.left !&#x3D; node) &#123;
-            node &#x3D; parent;
-            parent &#x3D; node.parent;
+        <span class="hljs-keyword">while</span> (parent != <span class="hljs-keyword">null</span> &amp;&amp; parent.left != node) &#123;
+            node = parent;
+            parent = node.parent;
         &#125;
-        return parent;
+        <span class="hljs-keyword">return</span> parent;
 
     &#125;
 &#125;</code></pre></div>
 
 <h4 id="查找最值"><a href="#查找最值" class="headerlink" title="查找最值"></a>查找最值</h4><p>BST的最值很好查找，只要一直沿着右子树去遍历，那么得到的就是最大值。一直沿着左子树去遍历，那么得到的就是最小值。</p>
-<div class="hljs code-wrapper"><pre class="language-java" data-language="java"><code class="language-java">&#x2F;* 查找BST中的最大值 *&#x2F;
-public T max()
-&#123;
-    TreeNode&lt;T&gt; p &#x3D; root;
-    while (p !&#x3D; null &amp;&amp; p.right !&#x3D; null) &#123;
-        p &#x3D; p.right;
+<div class="hljs code-wrapper"><pre><code class="hljs java"><span class="hljs-comment">/* 查找BST中的最大值 */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">max</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+    TreeNode&lt;T&gt; p = root;
+    <span class="hljs-keyword">while</span> (p != <span class="hljs-keyword">null</span> &amp;&amp; p.right != <span class="hljs-keyword">null</span>) &#123;
+        p = p.right;
     &#125;
-    return p !&#x3D; null ? p.data : null;
+    <span class="hljs-keyword">return</span> p != <span class="hljs-keyword">null</span> ? p.data : <span class="hljs-keyword">null</span>;
 &#125;
 
-&#x2F;* 查找BST中的最小值 *&#x2F;
-public T min()
-&#123;
-    TreeNode&lt;T&gt; p &#x3D; root;
-    while (p !&#x3D; null &amp;&amp; p.left !&#x3D; null) &#123;
-        p &#x3D; p.left;
+<span class="hljs-comment">/* 查找BST中的最小值 */</span>
+<span class="hljs-function"><span class="hljs-keyword">public</span> T <span class="hljs-title">min</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+    TreeNode&lt;T&gt; p = root;
+    <span class="hljs-keyword">while</span> (p != <span class="hljs-keyword">null</span> &amp;&amp; p.left != <span class="hljs-keyword">null</span>) &#123;
+        p = p.left;
     &#125;
-    return p !&#x3D; null ? p.data : null;
+    <span class="hljs-keyword">return</span> p != <span class="hljs-keyword">null</span> ? p.data : <span class="hljs-keyword">null</span>;
 &#125;</code></pre></div>
 
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>BST这种数据结构能够维持数据的有序性，并且相对于普通的一维线性结构在性能上有着一定的优势，但是这种优势很不稳定。一般情况下，我们期望BST是横向增长速度高于纵向生长速度，即我们期望BST的是朝着枝繁叶茂的趋势去增长，但是一旦BST的纵向生长速度超过了横向生长速度，那么BST就会退化为一维的链表结构。这样在插入和查找上的性能就会有所损耗。所以为了让树的结构符合我们的预期，我们需要对树的”生长“以及”修剪“进行一定的约束。这也就有了后来的AVL树和红黑树。</p>

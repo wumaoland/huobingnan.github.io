@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
+    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":20,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      29
+      28
        分钟
     </span>
   
@@ -241,47 +241,47 @@
 <li>并发同步问题。</li>
 <li>BUG不易复现问题。</li>
 </ol>
-<h4 id="共享数据问题"><a href="#共享数据问题" class="headerlink" title="共享数据问题"></a>共享数据问题</h4><div class="hljs code-wrapper"><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;pthread.h&gt;
+<h4 id="共享数据问题"><a href="#共享数据问题" class="headerlink" title="共享数据问题"></a>共享数据问题</h4><div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;pthread.h&gt;</span></span>
 
-static int counter &#x3D; 0; &#x2F;* 全局变量 *&#x2F;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> counter = <span class="hljs-number">0</span>; <span class="hljs-comment">/* 全局变量 */</span>
 
-&#x2F;* 对变量counter进行递增操作 *&#x2F;
-void *decrement(void *args) &#123;
-    printf(&quot;In thread %s\n&quot;, (char*)args);
-    int i;
-    for (i&#x3D;0; i&lt;100000; ++i)
+<span class="hljs-comment">/* 对变量counter进行递增操作 */</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">decrement</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *args)</span> </span>&#123;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;In thread %s\n&quot;</span>, (<span class="hljs-keyword">char</span>*)args);
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">100000</span>; ++i)
         counter--;
-    return NULL;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
 &#125;
 
-&#x2F;* 对变量进行递减操作 *&#x2F;
-void *increment(void *args) &#123;
-    printf(&quot;In thread %s\n&quot;, (char*)args);
-    int i;
-    for (i&#x3D;0; i&lt;100000; ++i) 
+<span class="hljs-comment">/* 对变量进行递减操作 */</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">increment</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *args)</span> </span>&#123;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;In thread %s\n&quot;</span>, (<span class="hljs-keyword">char</span>*)args);
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">for</span> (i=<span class="hljs-number">0</span>; i&lt;<span class="hljs-number">100000</span>; ++i) 
         counter++;
-    return NULL;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
 &#125;
 
-int main() &#123;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
 
-    pthread_t p1,p2;
-    int rc;
-    rc &#x3D; pthread_create(&amp;p1, NULL, decrement, &quot;DECREMENT&quot;);
-    if (rc !&#x3D; 0) &#123;
-        printf(&quot;thread [DECREMENT] create error!\n&quot;);
-        exit(-1);
+    <span class="hljs-keyword">pthread_t</span> p1,p2;
+    <span class="hljs-keyword">int</span> rc;
+    rc = pthread_create(&amp;p1, <span class="hljs-literal">NULL</span>, decrement, <span class="hljs-string">&quot;DECREMENT&quot;</span>);
+    <span class="hljs-keyword">if</span> (rc != <span class="hljs-number">0</span>) &#123;
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;thread [DECREMENT] create error!\n&quot;</span>);
+        <span class="hljs-built_in">exit</span>(<span class="hljs-number">-1</span>);
     &#125;
-    rc &#x3D; pthread_create(&amp;p2, NULL, increment, &quot;INCREMENT&quot;);
-    if (rc !&#x3D; 0) &#123;
-         printf(&quot;thread [INCREMENT] create error!\n&quot;);
-        exit(-1);
+    rc = pthread_create(&amp;p2, <span class="hljs-literal">NULL</span>, increment, <span class="hljs-string">&quot;INCREMENT&quot;</span>);
+    <span class="hljs-keyword">if</span> (rc != <span class="hljs-number">0</span>) &#123;
+         <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;thread [INCREMENT] create error!\n&quot;</span>);
+        <span class="hljs-built_in">exit</span>(<span class="hljs-number">-1</span>);
     &#125;
-    pthread_join(p1, NULL);
-    pthread_join(p2, NULL);
-    printf(&quot;counter &#x3D; %d\n&quot;, counter);
-    return 0;
+    pthread_join(p1, <span class="hljs-literal">NULL</span>);
+    pthread_join(p2, <span class="hljs-literal">NULL</span>);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;counter = %d\n&quot;</span>, counter);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 
 <p>上述C语言代码逻辑很简单，一个线程对变量counter进行循环递增操作，另一个线程对变量进行循环递减操作，因为循环的次数是一样的，所以我们预期的结果是，最终counter的值不会改变。但是实际运行结果并不是这样。</p>
@@ -292,7 +292,7 @@ int main() &#123;
 <p>正如我们所说，一个线程什么时候被执行，什么时候被挂起完全取决于操作系统，那么当线程用完CPU时间片时，线程函数中代码停止的位置也具有一定的随机性。但是这种随机性是导致出现共享数据问题的原因吗？</p>
 <p>答案是：不全是。导致共享数据问题的原因不仅仅在于线程的调度，还取决于指令的原子性。我们写的高级语言代码最终要编译为二进制数据保存于内存中，那么我们在高级语言中可以通过一行(一句)代码完成的事情，真正交给CPU去做的时候，可能需要好几个步骤。</p>
 <p>例如上述代码中的<code>counter++</code>和<code>counter--</code>。这两句代码看起来好像是一步就可以完成，但是CPU真正去执行的时候并不是。我们可以通过<code>gcc -S [source file]</code>的方式，去查看编译后的汇编代码。</p>
-<div class="hljs code-wrapper"><pre class="language-asm" data-language="asm"><code class="language-asm">movl	counter(%rip), %eax
+<div class="hljs code-wrapper"><pre><code class="hljs asm">movl	counter(%rip), %eax
 subl	$1, %eax
 movl	%eax, counter(%rip)</code></pre></div>
 

@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
+    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":20,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      47
+      46
        分钟
     </span>
   
@@ -313,27 +313,27 @@
 <li>内核线程：操作系统内核中实现一种机制(线程机制)，由操作系统负责创建、调度、管理线程，使用者仅需发出线程创建相关的系统调用即可。但是内核线程的创建会经历用户态到内核态的转变，所以开销比用户线程大，但是内核线程由操作系统管理，因此当其中一个线程发生阻塞时，并不会影响到同进程内其他线程的工作，同时内核线程分得的CPU时间较多，执行效率较高。</li>
 </ol>
 <p>C语言环境进程创建代码</p>
-<div class="hljs code-wrapper"><pre class="language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;
-#include &lt;pthread.h&gt;
+<div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;pthread.h&gt;</span></span>
 
-&#x2F;* 线程任务函数 *&#x2F;
-void *mythread(void *args) &#123;
-    printf(&quot;%s\n&quot;, (char*) args);
-    return NULL;
+<span class="hljs-comment">/* 线程任务函数 */</span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">mythread</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *args)</span> </span>&#123;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%s\n&quot;</span>, (<span class="hljs-keyword">char</span>*) args);
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
 &#125;
-int main() &#123;
-    pthread_attr_t p1Attr; &#x2F;* 线程的属性 *&#x2F;
-    pthread_t p1; &#x2F;* 线程 *&#x2F;
-    int rc;
-    pthread_attr_init(&amp;p1Attr); &#x2F;* 初始化线程属性 *&#x2F;
-    pthread_attr_setscope(&amp;p1Attr, PTHREAD_SCOPE_SYSTEM); &#x2F;*与操作系统绑定*&#x2F;
-    pthread_attr_setschedpolicy(&amp;p1Attr, SCHED_RR); &#x2F;* 轮询的方式进行调度 *&#x2F;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">pthread_attr_t</span> p1Attr; <span class="hljs-comment">/* 线程的属性 */</span>
+    <span class="hljs-keyword">pthread_t</span> p1; <span class="hljs-comment">/* 线程 */</span>
+    <span class="hljs-keyword">int</span> rc;
+    pthread_attr_init(&amp;p1Attr); <span class="hljs-comment">/* 初始化线程属性 */</span>
+    pthread_attr_setscope(&amp;p1Attr, PTHREAD_SCOPE_SYSTEM); <span class="hljs-comment">/*与操作系统绑定*/</span>
+    pthread_attr_setschedpolicy(&amp;p1Attr, SCHED_RR); <span class="hljs-comment">/* 轮询的方式进行调度 */</span>
 
-    puts(&quot;Hello world\n&quot;);
-    rc &#x3D; pthread_create(&amp;p1, &amp;p1Attr, mythread, &quot;A&quot;); 
-    puts(&quot;Start a new thread\n&quot;);
-    rc &#x3D; pthread_join(p1, NULL); 
-    return 0;
+    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Hello world\n&quot;</span>);
+    rc = pthread_create(&amp;p1, &amp;p1Attr, mythread, <span class="hljs-string">&quot;A&quot;</span>); 
+    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Start a new thread\n&quot;</span>);
+    rc = pthread_join(p1, <span class="hljs-literal">NULL</span>); 
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 
 <blockquote>

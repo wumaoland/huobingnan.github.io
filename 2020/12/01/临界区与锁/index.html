@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
+    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":20,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      59
+      57
        分钟
     </span>
   
@@ -255,14 +255,14 @@
 <p>同时这种实现只能作用于单核CPU，对于多核CPU，就不能保障临界区的特性了。</p>
 <h4 id="基于软件的实现"><a href="#基于软件的实现" class="headerlink" title="基于软件的实现"></a>基于软件的实现</h4><p>基于软件的实现，就是利用一下数据结构+算法，来实现临界区的功能。</p>
 <p>例如Bakery算法：</p>
-<div class="hljs code-wrapper"><pre class="language-none"><code class="language-none">do&#123;
-    flag[i] &#x3D; TRUE
-    turn &#x3D; j
-    while (flag[i] &amp;&amp; turn &#x3D;&#x3D; j);
+<div class="hljs code-wrapper"><pre><code class="hljs sqf"><span class="hljs-keyword">do</span>&#123;
+    <span class="hljs-built_in">flag</span>[i] = <span class="hljs-literal">TRUE</span>
+    turn = j
+    <span class="hljs-keyword">while</span> (<span class="hljs-built_in">flag</span>[i] &amp;&amp; turn == j);
     	进入临界区
-    flag[i] &#x3D; FALSE
+    <span class="hljs-built_in">flag</span>[i] = <span class="hljs-literal">FALSE</span>
     	离开临界区
-&#125;while(TRUE)</code></pre></div>
+&#125;<span class="hljs-keyword">while</span>(<span class="hljs-literal">TRUE</span>)</code></pre></div>
 
 <p>相对比基于中断的实现方式，基于软件的实现能够达到一种细粒度的控制。但是基于软件实现的方式会很复杂。</p>
 <h4 id="更深层次的抽象"><a href="#更深层次的抽象" class="headerlink" title="更深层次的抽象"></a>更深层次的抽象</h4><p>锁和信号量。它们是操作系统提供的更高级的编程抽象用来解决临界区问题。锁和信号量不仅能够解决共享数据问题，同时他也可以解决线程间同步的问题，同时可以将我们代码的稳定性提高，降低出现BUG的风险。这两个概念十分重要，它们是解决并发问题的关键，在下面的章节中会详细的介绍。</p>
@@ -289,92 +289,92 @@
 <li><p>当线程执行完临界区的代码时，它要将标志位设为0，释放锁的的所有权，以便其他线程使用。</p>
 </li>
 </ol>
-<div class="hljs code-wrapper"><pre class="language-c" data-language="c"><code class="language-c">typedef struct lock_t &#123;int flag;&#125; lockt_t;
+<div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">lock_t</span> &#123;</span><span class="hljs-keyword">int</span> flag;&#125; <span class="hljs-keyword">lockt_t</span>;
 
-void init(lock_t *mutex) &#123;
-    mutex-&gt;flag &#x3D; 0; &#x2F;* 初始状态为0 代表锁未被任何线程持有*&#x2F;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">lock_t</span> *mutex)</span> </span>&#123;
+    mutex-&gt;flag = <span class="hljs-number">0</span>; <span class="hljs-comment">/* 初始状态为0 代表锁未被任何线程持有*/</span>
 &#125;
 
-void lock(lock_t *mutex) &#123;
-    &#x2F;* 自旋等待 *&#x2F;
-    while (mutex-&gt;flag !&#x3D; 0); &#x2F;&#x2F; spin-wait
-    mutex-&gt;flag &#x3D; 1;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">lock</span><span class="hljs-params">(<span class="hljs-keyword">lock_t</span> *mutex)</span> </span>&#123;
+    <span class="hljs-comment">/* 自旋等待 */</span>
+    <span class="hljs-keyword">while</span> (mutex-&gt;flag != <span class="hljs-number">0</span>); <span class="hljs-comment">// spin-wait</span>
+    mutex-&gt;flag = <span class="hljs-number">1</span>;
 &#125;
 
-void unlock(lock_t *mutex) &#123;
-    mutex-&gt;flag &#x3D; 0;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">unlock</span><span class="hljs-params">(<span class="hljs-keyword">lock_t</span> *mutex)</span> </span>&#123;
+    mutex-&gt;flag = <span class="hljs-number">0</span>;
 &#125;
 
 
 
-&#x2F;* thread code *&#x2F;
-static lock_t mutex;
-static int counter &#x3D; 10;
+<span class="hljs-comment">/* thread code */</span>
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">lock_t</span> mutex;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> counter = <span class="hljs-number">10</span>;
 &#123;
     init(&amp;mutex);
 &#125;
 
-void decrement() &#123;
-    &#x2F;* 尝试进入临界区 *&#x2F;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">decrement</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-comment">/* 尝试进入临界区 */</span>
 	mutex-&gt;lock();
-    	&#x2F;* 进入临界区 *&#x2F;
+    	<span class="hljs-comment">/* 进入临界区 */</span>
     	counter++;
-    &#x2F;* 临界区代码执行完毕，释放锁 *&#x2F;
+    <span class="hljs-comment">/* 临界区代码执行完毕，释放锁 */</span>
     mutex-&gt;unlock();
-    &#x2F;* 退出临界区 *&#x2F;
+    <span class="hljs-comment">/* 退出临界区 */</span>
 &#125;</code></pre></div>
 
 <p>这样实现的锁有问题吗？，我们可以测试一下。</p>
-<div class="hljs code-wrapper"><pre class="language-c" data-language="c"><code class="language-c">static lock_t mutex;
-static int counter &#x3D; 0;
-const static int LOOP_CNT &#x3D; 10000;
+<div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-keyword">static</span> <span class="hljs-keyword">lock_t</span> mutex;
+<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> counter = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> LOOP_CNT = <span class="hljs-number">10000</span>;
 
-void decrement() &#123;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">decrement</span><span class="hljs-params">()</span> </span>&#123;
     counter--;
 &#125;
 
-void increment() &#123;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">increment</span><span class="hljs-params">()</span> </span>&#123;
     counter++;
 &#125;
 
-void *threadI(void *args) &#123;
+<span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">threadI</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *args)</span> </span>&#123;
 
-    printf(&quot;thread %s\n&quot;, (char*)args);
-    int i;
-    for (i &#x3D; 0; i &lt; LOOP_CNT; ++i) &#123;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;thread %s\n&quot;</span>, (<span class="hljs-keyword">char</span>*)args);
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; LOOP_CNT; ++i) &#123;
         lock(&amp;mutex);
         increment();
         unlock(&amp;mutex);
     &#125;    
 
-    return NULL;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
 &#125;
 
-void *threadD(void *args) &#123;
-    printf(&quot;thread %s\n&quot;, (char*)args);
-    int i;
-    for (i &#x3D; 0; i &lt; LOOP_CNT; ++i) &#123;
+<span class="hljs-function"><span class="hljs-keyword">void</span> *<span class="hljs-title">threadD</span><span class="hljs-params">(<span class="hljs-keyword">void</span> *args)</span> </span>&#123;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;thread %s\n&quot;</span>, (<span class="hljs-keyword">char</span>*)args);
+    <span class="hljs-keyword">int</span> i;
+    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; LOOP_CNT; ++i) &#123;
         lock(&amp;mutex);
         decrement();
         unlock(&amp;mutex);
     &#125;
 
-    return NULL;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
 &#125;
 
-int main() &#123;
-    pthread_t th1,th2;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>&#123;
+    <span class="hljs-keyword">pthread_t</span> th1,th2;
     init(&amp;mutex);
 
-    pthread_create(&amp;th1, NULL, threadI, &quot;threadI&quot;);
-    pthread_create(&amp;th2, NULL, threadD, &quot;threadD&quot;);
+    pthread_create(&amp;th1, <span class="hljs-literal">NULL</span>, threadI, <span class="hljs-string">&quot;threadI&quot;</span>);
+    pthread_create(&amp;th2, <span class="hljs-literal">NULL</span>, threadD, <span class="hljs-string">&quot;threadD&quot;</span>);
 
-    pthread_join(th1, NULL);
-    pthread_join(th2, NULL);
+    pthread_join(th1, <span class="hljs-literal">NULL</span>);
+    pthread_join(th2, <span class="hljs-literal">NULL</span>);
 
-    printf(&quot;counter &#x3D; %d\n&quot;, counter);
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;counter = %d\n&quot;</span>, counter);
 
-    return 0;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
 
 <p>结果出现了点小意外。</p>
@@ -383,20 +383,20 @@ int main() &#123;
 <p>问题便是，我们的锁也是一个共享的变量，在并发场景下同样会出现共享变量问题。也就是说我们对锁进行操作的代码在CPU看来同样不具备原子性。在我们实现锁的代码中，在对flag标识为进行赋值时，如果操作系统调度中断，那么很有可能出现两个线程同时将flag设置为1，同时拥有锁的现象。显然这连基本的互斥性都无法满足，那么这将是一个bad lock。那么应该怎么做，这就不得不依赖我们的硬件原语了。</p>
 <h4 id="test-and-set"><a href="#test-and-set" class="headerlink" title="test-and-set"></a>test-and-set</h4><p>test-and-set是一种硬件原语。这种硬件原语能够保障指令的原子性。在SPARC上，这个指令叫做<strong>ldstub(load/store unsigned byte) 加载保存无符号字节</strong>。在x86平台上，是<strong>xchg(atomic exchange, 原子交换指令)</strong></p>
 <p>因为这是一个硬件方面的原语，我们只能以C代码的形式来定义一下这个硬件原语做了什么</p>
-<div class="hljs code-wrapper"><pre class="language-c" data-language="c"><code class="language-c">int test_and_set(int *oldptr, int new) &#123;
-    int old &#x3D; *oldptr;
-    *oldptr &#x3D; new;
-    return old;
+<div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">test_and_set</span><span class="hljs-params">(<span class="hljs-keyword">int</span> *oldptr, <span class="hljs-keyword">int</span> <span class="hljs-keyword">new</span>)</span> </span>&#123;
+    <span class="hljs-keyword">int</span> old = *oldptr;
+    *oldptr = <span class="hljs-keyword">new</span>;
+    <span class="hljs-keyword">return</span> old;
 &#125;</code></pre></div>
 
 <p>我们用test-and-set这个硬件语言去重新实现一下我们的锁</p>
-<div class="hljs code-wrapper"><pre class="language-c" data-language="c"><code class="language-c">void lock(lock_t *mutex) &#123;
-    &#x2F;* 这段代码可以保证flag设置的原子性 *&#x2F;
-    while (test_and_set(&amp;mutex-&gt;flag, 1) &#x3D;&#x3D; 1); &#x2F;&#x2F; spin-lock
+<div class="hljs code-wrapper"><pre><code class="hljs c"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">lock</span><span class="hljs-params">(<span class="hljs-keyword">lock_t</span> *mutex)</span> </span>&#123;
+    <span class="hljs-comment">/* 这段代码可以保证flag设置的原子性 */</span>
+    <span class="hljs-keyword">while</span> (test_and_set(&amp;mutex-&gt;flag, <span class="hljs-number">1</span>) == <span class="hljs-number">1</span>); <span class="hljs-comment">// spin-lock</span>
 &#125;
 
-void unlock(lock_t *mutex) &#123;
-    mutex-&gt;flag &#x3D; 0;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">unlock</span><span class="hljs-params">(<span class="hljs-keyword">lock_t</span> *mutex)</span> </span>&#123;
+    mutex-&gt;flag = <span class="hljs-number">0</span>;
 &#125;</code></pre></div>
             </div>
             <hr>

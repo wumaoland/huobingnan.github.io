@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
+    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":20,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      530 字
+      517 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      12
        分钟
     </span>
   
@@ -242,30 +242,30 @@
 </li>
 <li><p><strong>撰写配置文件</strong></p>
 <p>进入解压缩之后的MySQL安装包，一般情况下，其目录结构如下：</p>
-<div class="hljs code-wrapper"><pre class="language-none"><code class="language-none">- mysql-xxxx-winx64
+<div class="hljs code-wrapper"><pre><code class="hljs crystal">- mysql-xxxx-winx64
 	- bin
 	- docs
-	- lib
-	- include
+	- <span class="hljs-class"><span class="hljs-keyword">lib</span></span>
+	- <span class="hljs-keyword">include</span>
 	- share</code></pre></div>
 
 <p>在此目录下创建一个名为<code>my.ini</code>的配置文件，并编辑其内容为:</p>
-<div class="hljs code-wrapper"><pre class="language-ini" data-language="ini"><code class="language-ini">[client]
-port&#x3D;3306
-default-character-set&#x3D;utf8
-[mysqld] 
-# 设置为自己MYSQL的安装目录 
-basedir&#x3D;F:&#x2F;mysql-5.7.25-winx64
-# 设置为MYSQL的数据目录 
-datadir&#x3D;F:&#x2F;mysql-5.7.25-winx64&#x2F;data
-port&#x3D;3306
-character_set_server&#x3D;utf8
-sql_mode&#x3D;NO_ENGINE_SUBSTITUTION,NO_AUTO_CREATE_USER
-#开启查询缓存
-explicit_defaults_for_timestamp&#x3D;true
-#设置时区
-default-time_zone&#x3D;+8:00
-secure_file_priv&#x3D;</code></pre></div>
+<div class="hljs code-wrapper"><pre><code class="hljs ini"><span class="hljs-section">[client]</span>
+<span class="hljs-attr">port</span>=<span class="hljs-number">3306</span>
+<span class="hljs-attr">default-character-set</span>=utf8
+<span class="hljs-section">[mysqld]</span> 
+<span class="hljs-comment"># 设置为自己MYSQL的安装目录 </span>
+<span class="hljs-attr">basedir</span>=F:/mysql-<span class="hljs-number">5.7</span>.<span class="hljs-number">25</span>-winx64
+<span class="hljs-comment"># 设置为MYSQL的数据目录 </span>
+<span class="hljs-attr">datadir</span>=F:/mysql-<span class="hljs-number">5.7</span>.<span class="hljs-number">25</span>-winx64/data
+<span class="hljs-attr">port</span>=<span class="hljs-number">3306</span>
+<span class="hljs-attr">character_set_server</span>=utf8
+<span class="hljs-attr">sql_mode</span>=NO_ENGINE_SUBSTITUTION,NO_AUTO_CREATE_USER
+<span class="hljs-comment">#开启查询缓存</span>
+<span class="hljs-attr">explicit_defaults_for_timestamp</span>=<span class="hljs-literal">true</span>
+<span class="hljs-comment">#设置时区</span>
+<span class="hljs-attr">default-time_zone</span>=+<span class="hljs-number">8</span>:<span class="hljs-number">00</span>
+secure_file_priv=</code></pre></div>
 </li>
 <li><p><strong>配置环境变量与注册服务</strong></p>
 <ul>
@@ -278,11 +278,11 @@ secure_file_priv&#x3D;</code></pre></div>
 <p>输入<code>mysqld --initialize</code>，初始化MySQL数据库。</p>
 <p>若这一步骤出错，请将<code>my.ini</code>文件更改为<code>ASNI</code>编码格式保存。</p>
 <p>初始化完毕后，进入<code>data</code>目录，打开文件<code>callback.err</code>查找初始化登录密码:</p>
-<div class="hljs code-wrapper"><pre class="language-none"><code class="language-none">2020-11-15T05:01:16.628365Z 1 [Note] A temporary password is generated for root@localhost: ?az:cRvVc7QY &lt;--- 这个是初始化登录密码,登录之后可以修改。</code></pre></div>
+<div class="hljs code-wrapper"><pre><code class="hljs apache"><span class="hljs-attribute">2020</span>-<span class="hljs-number">11</span>-<span class="hljs-number">15</span>T<span class="hljs-number">05</span>:<span class="hljs-number">01</span>:<span class="hljs-number">16</span>.<span class="hljs-number">628365</span>Z <span class="hljs-number">1</span><span class="hljs-meta"> [Note] A temporary password is generated for root@localhost: ?az:cRvVc7QY &lt;--- 这个是初始化登录密码,登录之后可以修改。</span></code></pre></div>
 </li>
 <li><p>将MySQL注册为系统服务：</p>
 <p>打开命令提示符程序并输入:</p>
-<div class="hljs code-wrapper"><pre class="language-shell" data-language="shell"><code class="language-shell">mysqld --install MySQL</code></pre></div>
+<div class="hljs code-wrapper"><pre><code class="hljs shell">mysqld --install MySQL</code></pre></div>
 </li>
 <li><p>MySQL服务的开启与关闭</p>
 <p>开启服务：<code>net start MySQL</code>。</p>
@@ -292,7 +292,7 @@ secure_file_priv&#x3D;</code></pre></div>
 <ol start="4">
 <li><p><strong>修改初始化密码</strong></p>
 <p>使用<code>mysql</code>连接MySQL服务器。然后修改默认密码。</p>
-<div class="hljs code-wrapper"><pre class="language-sql" data-language="sql"><code class="language-sql">alter user &#39;root&#39;@&#39;localhost&#39; identified by &#39;xxxxx&#39;;</code></pre></div>
+<div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-keyword">alter</span> <span class="hljs-keyword">user</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;localhost&#x27;</span> <span class="hljs-keyword">identified</span> <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;xxxxx&#x27;</span>;</code></pre></div>
 
 
 

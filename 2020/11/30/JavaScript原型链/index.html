@@ -55,7 +55,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":30,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
+    var CONFIG = {"hostname":"huobingnan.github.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":20,"cursorChar":"|","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":"21c117f9fd51a78e4ad3223496bbd5b3","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"RV643EMeIP2v5QRkcaQBfqav-gzGzoHsz","app_key":"4DlEtt6OAHW1suaXkcHUBhKW","server_url":"https://rv643eme.lc-cn-n1-shared.com"}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -242,67 +242,67 @@
 <li><p><strong>初探原型链</strong></p>
 <p>JavaScript中每个对象都有一个”属性“<code>__proto__</code>，实际上它并不是属性，而是一个属性访问器(Accessor)，</p>
 <p>通过它你可以获取到一个对象的原型。对象的原型也是一个对象，所以对象的原型也有<code>__proto__</code>，这样就构成了一个链式的结构，没错这就是对象的<strong>原型链</strong>。</p>
-<div class="hljs code-wrapper"><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> s <span class="token operator">=</span> <span class="token string">"hello world"</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>__proto__<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">const</span> s = <span class="hljs-string">&quot;hello world&quot;</span>;
+<span class="hljs-built_in">console</span>.log(s.__proto__);</code></pre></div>
 </li>
 <li><p><strong>prototype</strong></p>
 <p>在JavaScript中还有另一个与原型链十分重要的概念那就是<code>prototype</code>，<code>prototype</code>是一个属性，但是它并不是一个所有对象都拥有的属性，这个属性仅存在于<code>function</code>对象中。在我看来，能够明确<code>prototype</code>与<code>__proto__</code>之间的区别，你会对JavaScript语言设计的理解上升一个层次。</p>
 <p>JavaScript中常见的几种数据类型，分别是：</p>
 <p>数组类型，字符串类型，数字类型，函数类型，集合类型，映射类型。</p>
-<div class="hljs code-wrapper"><pre class="language-js" data-language="js"><code class="language-js">Array<span class="token punctuation">;</span> <span class="token comment">// 数组构造函数</span>
-String<span class="token punctuation">;</span> <span class="token comment">// 字符串构造函数</span>
-Number<span class="token punctuation">;</span> <span class="token comment">// 数字构造函数</span>
-Function<span class="token punctuation">;</span> <span class="token comment">// 函数构造函数</span>
-Map<span class="token punctuation">;</span> <span class="token comment">// 映射构造函数</span>
-Set<span class="token punctuation">;</span> <span class="token comment">// 集合构造函数</span></code></pre></div>
+<div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-built_in">Array</span>; <span class="hljs-comment">// 数组构造函数</span>
+<span class="hljs-built_in">String</span>; <span class="hljs-comment">// 字符串构造函数</span>
+<span class="hljs-built_in">Number</span>; <span class="hljs-comment">// 数字构造函数</span>
+<span class="hljs-built_in">Function</span>; <span class="hljs-comment">// 函数构造函数</span>
+<span class="hljs-built_in">Map</span>; <span class="hljs-comment">// 映射构造函数</span>
+<span class="hljs-built_in">Set</span>; <span class="hljs-comment">// 集合构造函数</span></code></pre></div>
 
 <p>其实在JavaScript中比较容易混淆的一个概念是构造函数和类型，其实这是两个不同的概念。</p>
-<div class="hljs code-wrapper"><pre class="language-js" data-language="js"><code class="language-js">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> String<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// false</span></code></pre></div>
+<div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&quot;</span>.__proto__ === <span class="hljs-built_in">String</span>); <span class="hljs-comment">// false</span></code></pre></div>
 
 <p>在JavaScript中函数也是对象，<code>String</code>，<code>Array</code>他们并不是类型，而是对象，一种特殊的对象。这种对象可以派生其他的对象，当它们被当作构造函数使用时，但是StringObject和String并没有父与子的关系，它们两个的关系是平等的，是好兄弟的关系。</p>
 <p>我在上文中也提到过，任何对象都有一个原型，那么我通过构造函数新创建出来的对象它以哪个对象为原型呢？首先我们可以排除它肯定不是以构造函数对象为原型的，上面的例子中我们也证明了。</p>
 <p>答案是：通过构造函数对象<code>new</code>出来的对象是以构造函数中的一个属性<code>prototype</code>所指向的对象为原型的。</p>
-<div class="hljs code-wrapper"><pre class="language-js" data-language="js"><code class="language-js">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> <span class="token class-name">String</span><span class="token punctuation">.</span>prototype<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span></code></pre></div>
+<div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&quot;</span>.__proto__ === <span class="hljs-built_in">String</span>.prototype); <span class="hljs-comment">// true</span></code></pre></div>
 
 <p><img src="/2020/11/30/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE/prototype.png" srcset="/img/loading.gif"></p>
 </li>
 <li><p><strong>原型链的作用</strong></p>
 <p>文章最开始说，JavaScript的原型可以看作是可复用的单例。那么原型链就是为了解决复用性问题。</p>
 <p>首先JavaScript是面向对象的程序设计语言。既然面向对象那么就会有属性和方法的概念。在其他面向对象的程序设计语言中，对象其实就是数据（属性）的集合。至于方法在内存中其实只存在一份。JavaScript的原型链设计也有这方面的考量，但是更多的像是通过原型链的方法借用，对象仍然是数据的集合。</p>
-<div class="hljs code-wrapper"><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">let</span> obj <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    name<span class="token operator">:</span> <span class="token string">"hello"</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// true</span></code></pre></div>
+<div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">let</span> obj = &#123;
+    name: <span class="hljs-string">&quot;hello&quot;</span>
+&#125;;
+<span class="hljs-built_in">console</span>.log(obj.hasOwnProperty(<span class="hljs-string">&quot;name&quot;</span>)); <span class="hljs-comment">// true</span></code></pre></div>
 
 <p>对于对象<code>obj</code>它并没有<code>hasOwnProperty</code>这个方法，但是我们仍然可以调用，这是为什么呢？</p>
 <p>答案其实是原型链在起作用，对象自己没有的方法和属性可以在原型链上向上找寻。</p>
 <p>我们来看一下<code>obj</code>的原型链。</p>
 <p><img src="/2020/11/30/JavaScript%E5%8E%9F%E5%9E%8B%E9%93%BE/object-prototype-chain.png" srcset="/img/loading.gif"></p>
 <p>没错方法就存在于<code>obj</code>的原型对象中，我们可以写个代码测试一下。</p>
-<div class="hljs code-wrapper"><pre class="language-js" data-language="js"><code class="language-js"><span class="token class-name">Object</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">hasOwnProperty</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">name</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> name<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// name</span></code></pre></div>
+<div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-built_in">Object</span>.prototype.hasOwnProperty = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) </span>&#123;
+    <span class="hljs-keyword">return</span> name;
+&#125;;
+<span class="hljs-built_in">console</span>.log(obj.hasOwnProperty(<span class="hljs-string">&quot;name&quot;</span>)); <span class="hljs-comment">// name</span></code></pre></div>
 
 <p>原型链是一个单向链，原型链上的对象可以看作是父与子的关系。</p>
 </li>
 </ol>
 <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p><strong>继承是原型的继承</strong>，JavaScript是面向对象的程序设计语言，所以自然会有对象之间的继承，组合等关系。上文讲到JavaScript原型链上的对象有着父与子的关系。所以JavaScript中的继承也是通过原型链来实现的。</p>
-<div class="hljs code-wrapper"><pre class="language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">Shape</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span>
+<div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Shape</span>(<span class="hljs-params"></span>) </span>&#123;&#125;
 
-<span class="token class-name">Shape</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function-variable function">draw</span> <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">drawing </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+Shape.prototype.draw = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`drawing <span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.name&#125;</span>`</span>);
+&#125;
 
-<span class="token keyword">function</span> <span class="token function">Rectangle</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"矩形"</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rectangle</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-built_in">this</span>.name = <span class="hljs-string">&quot;矩形&quot;</span>;
+&#125;
 
-<span class="token comment">// 继承是原型的继承</span>
-<span class="token class-name">Rectangle</span><span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> <span class="token class-name">Shape</span><span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+<span class="hljs-comment">// 继承是原型的继承</span>
+Rectangle.prototype.__proto__ = Shape.prototype;
 
-<span class="token keyword">let</span> r <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Rectangle</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-r<span class="token punctuation">.</span><span class="token function">draw</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre></div>
+<span class="hljs-keyword">let</span> r = <span class="hljs-keyword">new</span> Rectangle();
+r.draw();</code></pre></div>
 
 
 
